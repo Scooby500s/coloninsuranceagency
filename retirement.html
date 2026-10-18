@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Retirement & financial planning · Colón Insurance Agency</title>
 
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="emblem.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,15 +22,18 @@
   <text font-family="'Nunito Sans', 'Arial Rounded MT Bold', Arial, sans-serif" font-weight="900" font-size="17.5" letter-spacing="1.1" fill="#FFFFFF"><textPath href="#arc-top" startOffset="50%" text-anchor="middle">COLÓN INSURANCE AGENCY</textPath></text>
   <text font-family="'Nunito Sans', Arial, sans-serif" font-weight="800" font-size="11.5" letter-spacing="2.6" fill="#E9A93A"><textPath href="#arc-bot" startOffset="50%" text-anchor="middle">KISSIMMEE · FLORIDA</textPath></text>
   <circle cx="17.5" cy="123" r="2.6" fill="#E9A93A"/><circle cx="182.5" cy="123" r="2.6" fill="#E9A93A"/>
-  <image href="emblem.png" x="45" y="49" width="110" height="102.3"/>
+  <image href="img/emblem.png" x="45" y="49" width="110" height="102.3"/>
 </symbol></svg>
-<div class="topband"><div class="wrap">
-  <span><span class="en">Serving Kissimmee and all of Central Florida</span><span class="es">Servimos a Kissimmee y todo el centro de Florida</span> · <b class="phone">407-433-5475</b></span>
-  <div class="lang-switch" role="group" aria-label="Language / Idioma">
-    <button type="button" data-lang="en" aria-pressed="true">English</button>
-    <button type="button" data-lang="es" aria-pressed="false" lang="es">Español</button>
-  </div>
-</div></div>
+<div class="fun-bg" aria-hidden="true">
+  <svg class="fb fb1" viewBox="0 0 120 70"><path d="M30 64a24 24 0 0 1 2-48 30 30 0 0 1 56 4 22 22 0 0 1 6 44Z"/></svg>
+  <svg class="fb fb2" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18"/></svg>
+  <svg class="fb fb3" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11Z"/></svg>
+  <svg class="fb fb4" viewBox="0 0 120 70"><path d="M30 64a24 24 0 0 1 2-48 30 30 0 0 1 56 4 22 22 0 0 1 6 44Z"/></svg>
+  <svg class="fb fb5" viewBox="0 0 24 24"><path d="M12 2 20 5v6c0 5-3.4 8.4-8 9.5C7.4 19.4 4 16 4 11V5Z"/></svg>
+  <svg class="fb fb6" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18"/></svg>
+  <svg class="fb fb7" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11Z"/></svg>
+  <svg class="fb fb8" viewBox="0 0 120 70"><path d="M30 64a24 24 0 0 1 2-48 30 30 0 0 1 56 4 22 22 0 0 1 6 44Z"/></svg>
+</div>
 <header class="site-header">
   <div class="wrap head-row">
     <a class="brand" href="index.html" aria-label="Colón Insurance Agency, home">
@@ -40,61 +43,98 @@
     <div class="search" role="search">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
       <label for="site-search" class="sr-only">Search / Buscar</label>
-      <input id="site-search" type="search" autocomplete="off" placeholder="Search insurance… / Buscar…" aria-controls="search-results" aria-expanded="false">
+      <input id="site-search" type="search" autocomplete="off" placeholder="Search insurance…" aria-controls="search-results" aria-expanded="false">
       <ul id="search-results" class="search-results" role="listbox" hidden></ul>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language / Idioma">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false" lang="es">ES</button>
     </div>
     <a class="call-btn" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-433-5475</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav"><span class="en">Menu</span><span class="es">Menú</span></button>
   </div>
-  <nav id="main-nav" class="main-nav" aria-label="Main"><div class="wrap"><a href="index.html"><span class="en">Home</span><span class="es">Inicio</span></a><a href="insurance.html" aria-current="page"><span class="en">Insurance</span><span class="es">Seguros</span></a><a href="choose.html"><span class="en">Help me choose</span><span class="es">Ayúdame a elegir</span></a><a href="team.html"><span class="en">Our team</span><span class="es">Nuestro equipo</span></a><a href="about.html"><span class="en">About us</span><span class="es">Quiénes somos</span></a><a href="contact.html"><span class="en">Contact</span><span class="es">Contacto</span></a></div></nav>
+  <nav id="main-nav" class="main-nav" aria-label="Main"><div class="wrap"><a href="index.html"><span class="en">Home</span><span class="es">Inicio</span></a><a href="insurance.html" aria-current="page"><span class="en">Insurance</span><span class="es">Seguros</span></a><a href="choose.html"><span class="en">Help me choose</span><span class="es">Ayúdame a elegir</span></a><a href="team.html"><span class="en">Our team</span><span class="es">Nuestro equipo</span></a><a href="about.html"><span class="en">About us</span><span class="es">Quiénes somos</span></a><a href="blog.html"><span class="en">Blog</span><span class="es">Blog</span></a><a href="contact.html"><span class="en">Contact</span><span class="es">Contacto</span></a></div></nav>
 </header>
 <main id="main"><nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="index.html"><span class="en">Home</span><span class="es">Inicio</span></a><span class="sep" aria-hidden="true">›</span><a href="insurance.html"><span class="en">Insurance</span><span class="es">Seguros</span></a><span class="sep" aria-hidden="true">›</span><span aria-current="page"><span class="en">Retirement &amp; financial planning</span><span class="es">Retiro y planificación financiera</span></span></div></nav>
 <section class="ins-hero"><div class="wrap hero-grid">
   <div class="hero-copy">
     <span class="eyebrow"><span class="en">Insurance</span><span class="es">Seguros</span></span>
     <h1 class="h1-page"><span class="en">Retirement &amp; financial planning</span><span class="es">Retiro y planificación financiera</span></h1>
-    <p class="lead"><span class="en">Plan for retirement and for care you may need later, and get clear answers to your money questions.</span><span class="es">Planifique su retiro y el cuidado que pueda necesitar, y aclare sus dudas sobre finanzas.</span></p>
+    <p class="lead"><span class="en">Plan for retirement, protect your savings and get clear answers to your money questions.</span><span class="es">Planifique su retiro, proteja sus ahorros y aclare sus dudas sobre finanzas.</span></p>
     <div class="actions"><a class="btn btn-main" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="en">Call for a free quote</span><span class="es">Llame para una cotización gratis</span></a></div>
   </div>
-  <div class="hero-img"><img src="retirement.svg" alt="" width="640" height="420"></div>
+  <div class="hero-img"><img src="img/retirement.svg" alt="" width="640" height="420"></div>
 </div></section>
 <section class="block"><div class="wrap ins-body">
   <div class="ins-main">
     <div class="who"><span class="label"><span class="en">Who it is for</span><span class="es">Para quién es</span></span><p><span class="en">People getting close to retirement, retirees, and families thinking about the next generation.</span><span class="es">Personas cerca del retiro, jubilados y familias que piensan en la próxima generación.</span></p></div>
     <h2><span class="en">Your options</span><span class="es">Sus opciones</span></h2>
-    <div class="types"><div class="type"><h3><span class="en">Annuities</span><span class="es">Anualidades</span></h3><p><span class="en">Turn part of your savings into a steady income you cannot outlive. Money in an annuity grows tax-deferred.</span><span class="es">Convierta parte de sus ahorros en un ingreso fijo de por vida. El dinero en una anualidad crece con impuestos diferidos.</span></p></div><div class="type"><h3><span class="en">Long-term care</span><span class="es">Cuidado a largo plazo</span></h3><p><span class="en">Pays for a home health aide, assisted living or a nursing home. Medicare does not pay for this kind of care over the long term.</span><span class="es">Paga por un asistente en el hogar, vivienda asistida u hogar de ancianos. Medicare no paga este tipo de cuidado a largo plazo.</span></p></div><div class="type"><h3><span class="en">Financial planning conversations</span><span class="es">Planificación financiera</span></h3><p><span class="en">Protect your retirement savings, leave money to your family, and make a plan that fits your goals.</span><span class="es">Proteja sus ahorros de retiro, deje un legado a su familia y haga un plan de acuerdo con sus metas.</span></p></div></div>
+    <div class="tabs" data-tabs><div class="tab-list" role="tablist"><button type="button" role="tab" class="tab" id="tab-0" aria-controls="panel-0" aria-selected="true"><span class="en">Annuities</span><span class="es">Anualidades</span></button><button type="button" role="tab" class="tab" id="tab-1" aria-controls="panel-1" aria-selected="false"><span class="en">Financial planning conversations</span><span class="es">Planificación financiera</span></button></div><div class="tab-panels"><div class="type" role="tabpanel" id="panel-0" aria-labelledby="tab-0"><h3><span class="en">Annuities</span><span class="es">Anualidades</span></h3><p><span class="en">Turn part of your savings into a steady income you cannot outlive. Money in an annuity grows tax-deferred.</span><span class="es">Convierta parte de sus ahorros en un ingreso fijo de por vida. El dinero en una anualidad crece con impuestos diferidos.</span></p></div><div class="type" role="tabpanel" id="panel-1" aria-labelledby="tab-1"><h3><span class="en">Financial planning conversations</span><span class="es">Planificación financiera</span></h3><p><span class="en">Protect your retirement savings, leave money to your family, and make a plan that fits your goals.</span><span class="es">Proteja sus ahorros de retiro, deje un legado a su familia y haga un plan de acuerdo con sus metas.</span></p></div></div></div>
     <h2><span class="en">Common questions</span><span class="es">Preguntas frecuentes</span></h2>
     <div class="faqs"><details class="faq"><summary><span class="en">Is my first conversation free?</span><span class="es">¿La primera consulta es gratis?</span></summary><p><span class="en">Yes. We listen to your goals and explain your options with no cost and no pressure.</span><span class="es">Sí. Escuchamos sus metas y le explicamos sus opciones sin costo y sin presión.</span></p></details><details class="faq"><summary><span class="en">Does Medicare pay for a nursing home?</span><span class="es">¿Medicare paga un hogar de ancianos?</span></summary><p><span class="en">Only for short stays after a hospital visit. Long-term care insurance helps cover longer stays and care at home.</span><span class="es">Solo por estadías cortas después de una hospitalización. El seguro de cuidado a largo plazo ayuda con estadías más largas y cuidado en el hogar.</span></p></details></div>
   </div>
   <aside class="ins-side">
     <div class="side-card">
       <h3><span class="en">Talk to our team</span><span class="es">Hable con nuestro equipo</span></h3>
-      <p><span class="en">Nelson, Norma and Joan can all help you with this. Whoever answers will take care of you.</span><span class="es">Nelson, Norma y Joan pueden ayudarle con esto. Quien le conteste le atenderá.</span></p>
+      <p><span class="en">Nelson, Norma and Joan can all help you with this. Call or send a message and whoever answers will take care of you.</span><span class="es">Nelson, Norma y Joan pueden ayudarle con esto. Llame o envíe un mensaje y quien le conteste le atenderá.</span></p>
       <a class="side-phone" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-433-5475</span></a>
-      <a class="side-phone small" href="tel:+14077850971"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-785-0971</span></a>
       
-      <div class="side-people"><a class="side-person" href="mailto:nelsoncolon@coloninsuranceagency.com"><img src="team-nelson.jpg" alt="" width="720" height="720" loading="lazy"><span><b>Nelson Colón</b><span>nelsoncolon<wbr>@coloninsuranceagency.com</span></span></a><a class="side-person" href="mailto:normalappot@coloninsuranceagency.com"><img src="team-norma.jpg" alt="" width="720" height="720" loading="lazy"><span><b>Norma A. Lappot</b><span>normalappot<wbr>@coloninsuranceagency.com</span></span></a><a class="side-person" href="mailto:joancolon@coloninsuranceagency.com"><img src="team-joan.jpg" alt="" width="720" height="720" loading="lazy"><span><b>Joan C. Colón</b><span>joancolon<wbr>@coloninsuranceagency.com</span></span></a></div>
-      <a class="side-mail" href="mailto:contact@coloninsuranceagency.com"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>contact<wbr>@coloninsuranceagency.com</span></a>
+      <button type="button" class="btn btn-sun side-msg" data-message="team"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg><span class="en">Send a message</span><span class="es">Enviar un mensaje</span></button>
     </div>
-    <div class="side-card soft"><h3><span class="en">Not sure this is the one?</span><span class="es">¿No está seguro?</span></h3><a href="choose.html"><span class="en">Answer one question and we will point you in the right direction</span><span class="es">Conteste una pregunta y le indicamos por dónde empezar</span> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
   </aside>
 </div></section>
 <section class="block alt"><div class="wrap">
   <h2 class="h2-small"><span class="en">Other insurance you may need</span><span class="es">Otros seguros que puede necesitar</span></h2>
-  <div class="related"><a class="rel" href="life.html"><img src="life.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Life insurance</span><span class="es">Seguro de vida</span></span></a><a class="rel" href="disability.html"><img src="disability.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Disability insurance</span><span class="es">Seguro por incapacidad</span></span></a><a class="rel" href="health.html"><img src="health.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Health insurance</span><span class="es">Seguro de salud</span></span></a></div>
+  <div class="related"><a class="rel" href="life.html"><img src="img/life.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Life insurance</span><span class="es">Seguro de vida</span></span></a><a class="rel" href="disability.html"><img src="img/disability.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Disability insurance</span><span class="es">Seguro por incapacidad</span></span></a><a class="rel" href="health.html"><img src="img/health.svg" alt="" width="640" height="420" loading="lazy"><span><span class="en">Health insurance</span><span class="es">Seguro de salud</span></span></a></div>
 </div></section></main>
 
 <section class="cta-band"><div class="wrap">
-  <div><h2><span class="en">Questions? Call any of us.</span><span class="es">¿Preguntas? Llame a cualquiera de nosotros.</span></h2>
+  <div><h2><span class="en">Questions? Talk to any of us.</span><span class="es">¿Preguntas? Hable con cualquiera de nosotros.</span></h2>
   <p><span class="en">Nelson, Norma and Joan work as one team. Whoever answers can help you with any type of insurance.</span><span class="es">Nelson, Norma y Joan trabajan como un solo equipo. Quien le conteste puede ayudarle con cualquier tipo de seguro.</span></p></div>
-  <div class="cta-actions"><a class="btn btn-sun" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-433-5475</span></a><a class="btn btn-line" href="contact.html"><span class="en">All contact options</span><span class="es">Todas las formas de contacto</span></a></div>
+  <div class="cta-actions"><a class="btn btn-sun" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-433-5475</span></a><button type="button" class="btn btn-line" data-message="team"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg><span class="en">Send a message</span><span class="es">Enviar un mensaje</span></button></div>
 </div></section>
 <footer><div class="wrap foot-grid">
-  <div class="foot-brand"><svg class="badge badge-foot" viewBox="0 0 200 200" aria-hidden="true"><use href="#cia-badge"/></svg><div><strong>Colón Insurance Agency LLC</strong><span>Kissimmee, Florida</span><span class="phone">407-433-5475 · 407-785-0971</span><span><span class="en">Fax</span><span class="es">Fax</span>: <span class="phone">321-337-0678</span></span><span>contact<wbr>@coloninsuranceagency.com</span><a class="fb-link" href="https://www.facebook.com/coloninsurance/" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21Z"/></svg><span>Facebook</span></a></div></div>
-  <div class="foot-col"><b><span class="en">Insurance</span><span class="es">Seguros</span></b><a href="life.html"><span class="en">Life insurance</span><span class="es">Seguro de vida</span></a><a href="disability.html"><span class="en">Disability insurance</span><span class="es">Seguro por incapacidad</span></a><a href="health.html"><span class="en">Health insurance</span><span class="es">Seguro de salud</span></a><a href="medicare.html"><span class="en">Medicare</span><span class="es">Medicare</span></a><a href="supplemental.html"><span class="en">Supplemental insurance</span><span class="es">Seguros suplementarios</span></a><a href="home-auto.html"><span class="en">Home, auto &amp; property</span><span class="es">Hogar, auto y propiedad</span></a><a href="final-expense.html"><span class="en">Final expense</span><span class="es">Gastos finales</span></a><a href="retirement.html"><span class="en">Retirement &amp; financial planning</span><span class="es">Retiro y planificación financiera</span></a></div>
-  <div class="foot-col"><b><span class="en">Agency</span><span class="es">Agencia</span></b><a href="choose.html"><span class="en">Help me choose</span><span class="es">Ayúdame a elegir</span></a><a href="team.html"><span class="en">Our team</span><span class="es">Nuestro equipo</span></a><a href="about.html"><span class="en">About us</span><span class="es">Quiénes somos</span></a><a href="contact.html"><span class="en">Contact</span><span class="es">Contacto</span></a></div>
+  <div class="foot-brand"><svg class="badge badge-foot" viewBox="0 0 200 200" aria-hidden="true"><use href="#cia-badge"/></svg><div><strong>Colón Insurance Agency LLC</strong><span>Kissimmee, Florida</span><span class="phone">407-433-5475 · 407-785-0971</span><span>Fax: <span class="phone">321-337-0678</span></span><span>contact<wbr>@coloninsuranceagency.com</span><a class="fb-link" href="https://www.facebook.com/coloninsurance/" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21Z"/></svg><span>Facebook</span></a></div></div>
+  <div class="foot-col"><b><span class="en">Insurance</span><span class="es">Seguros</span></b><a href="life.html"><span class="en">Life insurance</span><span class="es">Seguro de vida</span></a><a href="disability.html"><span class="en">Disability insurance</span><span class="es">Seguro por incapacidad</span></a><a href="health.html"><span class="en">Health insurance</span><span class="es">Seguro de salud</span></a><a href="medicare.html"><span class="en">Medicare</span><span class="es">Medicare</span></a><a href="supplemental.html"><span class="en">Supplemental insurance</span><span class="es">Seguros suplementarios</span></a><a href="critical-illness.html"><span class="en">Cancer, stroke &amp; critical illness</span><span class="es">Cáncer, derrame y enfermedades graves</span></a><a href="long-term-care.html"><span class="en">Long-term care</span><span class="es">Cuidado a largo plazo</span></a><a href="home-auto.html"><span class="en">Home, auto &amp; property</span><span class="es">Hogar, auto y propiedad</span></a><a href="final-expense.html"><span class="en">Final expense</span><span class="es">Gastos finales</span></a><a href="retirement.html"><span class="en">Retirement &amp; financial planning</span><span class="es">Retiro y planificación financiera</span></a></div>
+  <div class="foot-col"><b><span class="en">Agency</span><span class="es">Agencia</span></b><a href="choose.html"><span class="en">Help me choose</span><span class="es">Ayúdame a elegir</span></a><a href="team.html"><span class="en">Our team</span><span class="es">Nuestro equipo</span></a><a href="about.html"><span class="en">About us</span><span class="es">Quiénes somos</span></a><a href="blog.html">Blog</a><a href="contact.html"><span class="en">Contact</span><span class="es">Contacto</span></a></div>
 </div>
 <div class="wrap foot-note"><span class="en">Coverage is subject to the terms of each policy and the carrier's approval.</span><span class="es">La cobertura está sujeta a los términos de cada póliza y a la aprobación de la aseguradora.</span></div></footer>
+<dialog id="msg-dialog" class="msg-dialog" aria-labelledby="msg-title">
+  <form method="dialog" class="msg-close-form"><button class="msg-x" type="submit" aria-label="Close / Cerrar">×</button></form>
+  <div class="msg-head">
+    <img id="msg-photo" src="img/emblem.png" alt="" width="72" height="72">
+    <div><span class="label"><span class="en">Send a message to</span><span class="es">Enviar un mensaje a</span></span><h2 id="msg-title">Colón Insurance Agency</h2><span id="msg-email" class="msg-email"></span></div>
+  </div>
+  <form id="msg-form" class="msg-form" novalidate>
+    <label class="fld"><span><span class="en">Send to</span><span class="es">Enviar a</span></span>
+      <select id="msg-to" name="to">
+        <option value="team" data-en="Anyone on the team" data-es="Cualquiera del equipo">Anyone on the team</option>
+        <option value="nelson">Nelson Colón</option>
+        <option value="norma">Norma A. Lappot</option>
+        <option value="joan">Joan C. Colón</option>
+      </select></label>
+    <div class="fld-row">
+      <label class="fld"><span><span class="en">Your name</span><span class="es">Su nombre</span> *</span><input id="msg-name" name="name" type="text" autocomplete="name" required></label>
+      <label class="fld"><span><span class="en">Phone</span><span class="es">Teléfono</span></span><input id="msg-phone" name="phone" type="tel" autocomplete="tel"></label>
+    </div>
+    <label class="fld"><span>Email *</span><input id="msg-from" name="email" type="email" autocomplete="email" required></label>
+    <label class="fld"><span><span class="en">I am interested in</span><span class="es">Me interesa</span></span>
+      <select id="msg-topic" name="topic">
+        <option value="General question" data-en="A general question" data-es="Una pregunta general">A general question</option>
+        <option value="Life insurance" data-en="Life insurance" data-es="Seguro de vida">Life insurance</option><option value="Disability insurance" data-en="Disability insurance" data-es="Seguro por incapacidad">Disability insurance</option><option value="Health insurance" data-en="Health insurance" data-es="Seguro de salud">Health insurance</option><option value="Medicare" data-en="Medicare" data-es="Medicare">Medicare</option><option value="Supplemental insurance" data-en="Supplemental insurance" data-es="Seguros suplementarios">Supplemental insurance</option><option value="Cancer, stroke & critical illness" data-en="Cancer, stroke & critical illness" data-es="Cáncer, derrame y enfermedades graves">Cancer, stroke & critical illness</option><option value="Long-term care" data-en="Long-term care" data-es="Cuidado a largo plazo">Long-term care</option><option value="Home, auto & property" data-en="Home, auto & property" data-es="Hogar, auto y propiedad">Home, auto & property</option><option value="Final expense" data-en="Final expense" data-es="Gastos finales">Final expense</option><option value="Retirement & financial planning" data-en="Retirement & financial planning" data-es="Retiro y planificación financiera">Retirement & financial planning</option>
+      </select></label>
+    <label class="fld"><span><span class="en">Message</span><span class="es">Mensaje</span> *</span><textarea id="msg-text" name="message" rows="4" required></textarea></label>
+    <p class="msg-error" id="msg-error" hidden><span class="en">Please fill in your name, email and message.</span><span class="es">Por favor escriba su nombre, email y mensaje.</span></p>
+    <button class="btn btn-main msg-send" type="submit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg><span class="en">Send message</span><span class="es">Enviar mensaje</span></button>
+  </form>
+  <div class="msg-done" id="msg-done" hidden>
+    <div class="msg-check" aria-hidden="true">✓</div>
+    <h3><span class="en">Thank you!</span><span class="es">¡Gracias!</span></h3>
+    <p id="msg-done-text"><span class="en">Your message is on its way. We will get back to you soon.</span><span class="es">Su mensaje va en camino. Le responderemos pronto.</span></p>
+    <form method="dialog"><button class="btn btn-ghost" type="submit"><span class="en">Close</span><span class="es">Cerrar</span></button></form>
+  </div>
+</dialog>
+<button type="button" class="fab" data-message="team" aria-label="Send us a message / Envíenos un mensaje"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg><span><span class="en">Message us</span><span class="es">Escríbanos</span></span></button>
 <script src="site.js"></script>
 </body>
 </html>
