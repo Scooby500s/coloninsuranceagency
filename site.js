@@ -136,13 +136,26 @@
         'name': name, 'email': from, 'phone': phone0, 'interested_in': topic0, 'message': text
       };
       var ctrl = ('AbortController' in window) ? new AbortController() : null;
-      var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 15000);
+      var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 20000);
       function reset(){ btn.disabled = false; btn.innerHTML = label; clearTimeout(to); }
-      fetch('https://formsubmit.co/ajax/' + who.email, { method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
-        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, status: r.status, j: j || {}}; }); })
+      var nbody = new URLSearchParams({
+        'form-name': 'message-' + (PEOPLE[key] ? key : 'team'), 'bot-field': '',
+        'send_to': who.name + ' <' + who.email + '>',
+        'name': name, 'email': from, 'phone': phone0, 'interested_in': topic0, 'message': text
+      }).toString();
+      var sig = ctrl ? ctrl.signal : undefined, why1 = '';
+      fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: nbody, signal: sig })
+        .then(function(r){ if (r.ok) return {ok: true, status: r.status, j: {success: 'true'}}; why1 = 'site ' + r.status; throw new Error(why1); })
+        .catch(function(e1){
+          if (e1 && e1.name === 'AbortError') throw e1;
+          if (!why1) why1 = 'site: ' + (e1 && e1.message ? e1.message : 'error');
+          return fetch('https://formsubmit.co/ajax/' + who.email, { method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(payload), signal: sig })
+            .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, status: r.status, j: j || {}}; }); })
+            .catch(function(e2){ if (e2 && e2.name === 'AbortError') throw e2; return {ok: false, status: 0, j: {message: 'backup: ' + (e2 && e2.message ? e2.message : 'network error')}}; });
+        })
         .then(function(res){
           reset();
-          if (!res.ok || String(res.j.success) !== 'true') throw new Error((res.j && res.j.message) || ('HTTP ' + res.status));
+          if (!res.ok || String(res.j.success) !== 'true') throw new Error(why1 + ' / ' + ((res.j && res.j.message) || ('backup HTTP ' + res.status)));
           f.reset(); setRecipient(who.key);
           f.hidden = true; document.getElementById('msg-done').hidden = false;
           document.getElementById('msg-done-text').textContent = lang === 'es'
