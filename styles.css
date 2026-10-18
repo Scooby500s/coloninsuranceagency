@@ -645,3 +645,7 @@ body.lang-es .prose.en, body:not(.lang-es) .prose.es{display:none}
 @media (max-width:760px){.fab-wa span{display:none}.fab-wa{padding:16px;bottom:calc(86px + env(safe-area-inset-bottom,0px))}}
 .person-actions .btn-wa{font-size:16px;padding:11px 18px}
 .side-card .btn-wa{justify-content:center;border-color:#fff}
+/* send fallback */
+.msg-fallback{margin:.6rem 0 0;padding:.8rem;border-radius:12px;background:rgba(31,168,85,.08);display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.msg-fallback p{margin:0 0 .2rem;width:100%;font-weight:600}
+.msg-fallback .btn{flex:1 1 160px;justify-content:center}

@@ -121,26 +121,29 @@
       var f = e.target, get = function(id){ return document.getElementById(id).value.trim(); };
       var name = get('msg-name'), from = get('msg-from'), text = get('msg-text');
       var err = document.getElementById('msg-error'), fail = document.getElementById('msg-fail');
-      fail.hidden = true;
+      fail.hidden = true; document.getElementById('msg-fallback').hidden = true;
       if (!name || !from || from.indexOf('@') < 1 || !text) { err.hidden = false; return; }
       err.hidden = true;
       var key = get('msg-to'), who = PEOPLE[key] || PEOPLE.team;
       var btn = f.querySelector('.msg-send'), label = btn.innerHTML;
       btn.disabled = true; btn.textContent = lang === 'es' ? 'Enviando…' : 'Sending…';
-      var body = new URLSearchParams({
-        'form-name': 'message-' + (PEOPLE[key] ? key : 'team'),
-        'bot-field': get('msg-hp'),
-        'send_to': who.name + ' <' + who.email + '>',
+      var hp = get('msg-hp');
+      if (hp) { f.hidden = true; document.getElementById('msg-done').hidden = false; return; }
+      var payload = {
         'name': name, 'email': from, 'phone': get('msg-phone'),
-        'interested_in': get('msg-topic'), 'message': text
-      }).toString();
+        'interested_in': get('msg-topic'), 'message': text,
+        'sent_to': who.name,
+        '_subject': 'Website message for ' + who.name + ' from ' + name,
+        '_replyto': from, '_template': 'table', '_captcha': 'false'
+      };
       var ctrl = ('AbortController' in window) ? new AbortController() : null;
-      var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 12000);
+      var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 15000);
       function reset(){ btn.disabled = false; btn.innerHTML = label; clearTimeout(to); }
-      fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: body, signal: ctrl ? ctrl.signal : undefined })
-        .then(function(r){
+      fetch('https://formsubmit.co/ajax/' + who.email, { method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, j: j}; }); })
+        .then(function(res){
           reset();
-          if (!r.ok) throw new Error('status ' + r.status);
+          if (!res.ok || String(res.j.success) !== 'true') throw new Error(res.j.message || 'not sent');
           f.reset(); setRecipient(who.key);
           f.hidden = true; document.getElementById('msg-done').hidden = false;
           document.getElementById('msg-done-text').textContent = lang === 'es'
@@ -148,7 +151,17 @@
             : 'Your message was sent to ' + who.name + '. We will get back to you soon. This window will close on its own.';
           closeTimer = setTimeout(function(){ if (dlg.open) dlg.close(); }, 4500);
         })
-        .catch(function(){ reset(); fail.hidden = false; });
+        .catch(function(){
+          reset(); fail.hidden = false;
+          var es = lang === 'es', topic = get('msg-topic'), phone = get('msg-phone');
+          var full = (es ? 'Hola ' : 'Hi ') + who.name + ',\n\n' + text + '\n\n— ' + name + '\n' + from + (phone ? '\n' + phone : '') +
+            (topic ? '\n' + (es ? 'Interesado en: ' : 'Interested in: ') + topic : '');
+          var subj = (es ? 'Mensaje del sitio web de ' : 'Website message from ') + name;
+          document.getElementById('msg-fb-wa').href = 'https://wa.me/14074335475?text=' + encodeURIComponent(full);
+          document.getElementById('msg-fb-mail').href = 'mailto:' + who.email + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(full);
+          var fb = document.getElementById('msg-fallback'); fb.hidden = false;
+          var fbw = document.getElementById('msg-fb-wa'); if (fbw.focus) fbw.focus();
+        });
     });
   }
 
