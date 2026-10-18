@@ -255,3 +255,40 @@ footer{background:var(--band);color:color-mix(in srgb,var(--on-band) 80%,transpa
   .main-nav .wrap{flex-direction:column}
   .block{padding-block:40px 52px}
 }
+
+/* Photos and extra contact lines */
+.portrait{aspect-ratio:1/1;display:block}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.person-contact{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.person .person-contact .call{margin:0;padding:0;border:0}
+.person .call.pc span{display:flex;flex-direction:column;line-height:1.2}
+.person .call.pc small{font-size:13px;font-weight:700;color:var(--muted)}
+.person .mail{display:flex;align-items:center;gap:10px;color:var(--sea);font-weight:700;font-size:15px;text-decoration:none;overflow-wrap:anywhere}
+.person .mail svg{flex:none}
+.mini-photo{width:58px;height:58px;flex:none;border-radius:50%;object-fit:cover;border:3px solid var(--brand)}
+.side-phone.small{font-size:19px}
+.side-people{display:flex;flex-direction:column;gap:10px;padding-block:6px;border-top:1px solid color-mix(in srgb,var(--on-sea) 25%,transparent);border-bottom:1px solid color-mix(in srgb,var(--on-sea) 25%,transparent);padding:12px 0}
+.side-person{display:flex;align-items:center;gap:10px;color:var(--on-sea);text-decoration:none;min-width:0}
+.side-person img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--on-sea)}
+.side-person span{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.side-person b{font-size:15px}
+.side-person span span{font-size:12.5px;overflow-wrap:anywhere;opacity:.9}
+.pc-box{background:var(--sun-soft);color:var(--ink);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;font-size:15px}
+.pc-box a{color:var(--ink);font-weight:800;font-size:21px;text-decoration:none}
+.c-card.pc-card{border:2px solid var(--sun);background:var(--sun-soft)}
+.c-card .val.second{font-size:22px;color:var(--on-sea)}
+.fb-card{text-decoration:none}
+.fb-card .val{display:flex;align-items:center;gap:8px;color:var(--sea)!important;font-size:17px}
+.fb-card:hover{border-color:var(--sea)}
+.fb-link{display:inline-flex;align-items:center;gap:6px;color:var(--on-band);text-decoration:none;font-weight:700;margin-top:4px}
+.fb-link:hover{color:var(--sun)}
+.dir-head{margin-top:44px}
+.directory{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.dir-person{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;min-width:0}
+.dir-person img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none;border:3px solid var(--brand)}
+.dir-person div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.dir-person b{color:var(--ink);font-size:18px}
+.dir-person .role{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dir-person a{display:flex;align-items:center;gap:6px;color:var(--sea);font-weight:700;font-size:14.5px;text-decoration:none;overflow-wrap:anywhere}
+.dir-person a svg{flex:none}
+.fb-card .val svg{width:26px;height:26px}
