@@ -47,8 +47,8 @@
       <ul id="search-results" class="search-results" role="listbox" hidden></ul>
     </div>
     <div class="lang-switch" role="group" aria-label="Language / Idioma">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="es" aria-pressed="false" lang="es">ES</button>
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="es" aria-pressed="false" lang="es">Español</button>
     </div>
     <a class="call-btn" href="tel:+14074335475"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span class="phone">407-433-5475</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav"><span class="en">Menu</span><span class="es">Menú</span></button>
@@ -73,6 +73,9 @@
   <div class="foot-col"><b><span class="en">Agency</span><span class="es">Agencia</span></b><a href="choose.html"><span class="en">Help me choose</span><span class="es">Ayúdame a elegir</span></a><a href="team.html"><span class="en">Our team</span><span class="es">Nuestro equipo</span></a><a href="about.html"><span class="en">About us</span><span class="es">Quiénes somos</span></a><a href="blog.html">Blog</a><a href="contact.html"><span class="en">Contact</span><span class="es">Contacto</span></a></div>
 </div>
 <div class="wrap foot-note"><span class="en">Coverage is subject to the terms of each policy and the carrier's approval.</span><span class="es">La cobertura está sujeta a los términos de cada póliza y a la aprobación de la aseguradora.</span></div></footer>
+<div hidden aria-hidden="true">
+  <form name="message-team" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="message-team"><input name="bot-field"><input name="send_to"><input name="name"><input name="email"><input name="phone"><input name="interested_in"><textarea name="message"></textarea></form><form name="message-nelson" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="message-nelson"><input name="bot-field"><input name="send_to"><input name="name"><input name="email"><input name="phone"><input name="interested_in"><textarea name="message"></textarea></form><form name="message-norma" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="message-norma"><input name="bot-field"><input name="send_to"><input name="name"><input name="email"><input name="phone"><input name="interested_in"><textarea name="message"></textarea></form><form name="message-joan" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="message-joan"><input name="bot-field"><input name="send_to"><input name="name"><input name="email"><input name="phone"><input name="interested_in"><textarea name="message"></textarea></form>
+</div>
 <dialog id="msg-dialog" class="msg-dialog" aria-labelledby="msg-title">
   <form method="dialog" class="msg-close-form"><button class="msg-x" type="submit" aria-label="Close / Cerrar">×</button></form>
   <div class="msg-head">
@@ -80,6 +83,7 @@
     <div><span class="label"><span class="en">Send a message to</span><span class="es">Enviar un mensaje a</span></span><h2 id="msg-title">Colón Insurance Agency</h2><span id="msg-email" class="msg-email"></span></div>
   </div>
   <form id="msg-form" class="msg-form" novalidate>
+    <p class="hp" aria-hidden="true"><label>Leave empty <input id="msg-hp" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
     <label class="fld"><span><span class="en">Send to</span><span class="es">Enviar a</span></span>
       <select id="msg-to" name="to">
         <option value="team" data-en="Anyone on the team" data-es="Cualquiera del equipo">Anyone on the team</option>
@@ -99,11 +103,12 @@
       </select></label>
     <label class="fld"><span><span class="en">Message</span><span class="es">Mensaje</span> *</span><textarea id="msg-text" name="message" rows="4" required></textarea></label>
     <p class="msg-error" id="msg-error" hidden><span class="en">Please fill in your name, email and message.</span><span class="es">Por favor escriba su nombre, email y mensaje.</span></p>
+    <p class="msg-error" id="msg-fail" hidden><span class="en">Sorry, your message could not be sent right now. Please call us at <b class="phone">407-433-5475</b>.</span><span class="es">Lo sentimos, no se pudo enviar su mensaje en este momento. Por favor llámenos al <b class="phone">407-433-5475</b>.</span></p>
     <button class="btn btn-main msg-send" type="submit"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 11h7M8.5 14h4"/></svg><span class="en">Send message</span><span class="es">Enviar mensaje</span></button>
   </form>
   <div class="msg-done" id="msg-done" hidden>
     <div class="msg-check" aria-hidden="true">✓</div>
-    <h3><span class="en">Thank you!</span><span class="es">¡Gracias!</span></h3>
+    <h3><span class="en">Message sent!</span><span class="es">¡Mensaje enviado!</span></h3>
     <p id="msg-done-text"><span class="en">Your message is on its way. We will get back to you soon.</span><span class="es">Su mensaje va en camino. Le responderemos pronto.</span></p>
     <form method="dialog"><button class="btn btn-ghost" type="submit"><span class="en">Close</span><span class="es">Cerrar</span></button></form>
   </div>

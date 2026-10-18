@@ -113,33 +113,41 @@
   if (dlg) {
     dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
     document.getElementById('msg-to').addEventListener('change', function(e){ setRecipient(e.target.value); });
+    var closeTimer = null;
+    dlg.addEventListener('close', function(){ if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; } });
     document.getElementById('msg-form').addEventListener('submit', function(e){
       e.preventDefault();
       var f = e.target, get = function(id){ return document.getElementById(id).value.trim(); };
       var name = get('msg-name'), from = get('msg-from'), text = get('msg-text');
-      var err = document.getElementById('msg-error');
+      var err = document.getElementById('msg-error'), fail = document.getElementById('msg-fail');
+      fail.hidden = true;
       if (!name || !from || from.indexOf('@') < 1 || !text) { err.hidden = false; return; }
       err.hidden = true;
-      var who = PEOPLE[get('msg-to')] || PEOPLE.team;
-      var topic = get('msg-topic'), phone = get('msg-phone');
-      var subject = 'Website message: ' + topic + ' (' + name + ')';
-      var body = 'Name: ' + name + '\nEmail: ' + from + '\nPhone: ' + (phone || '-') + '\nInterested in: ' + topic + '\n\n' + text;
-      var btn = f.querySelector('.msg-send'); btn.disabled = true;
-      function done(viaMail){
-        f.hidden = true; document.getElementById('msg-done').hidden = false; btn.disabled = false; f.reset(); setRecipient(who.key);
-        document.getElementById('msg-done-text').textContent = viaMail
-          ? (lang === 'es' ? 'Abrimos su programa de email con el mensaje listo. Solo presione Enviar.' : 'We opened your email app with the message ready. Just press Send.')
-          : (lang === 'es' ? 'Su mensaje va en camino a ' + who.name + '. Le responderemos pronto.' : 'Your message is on its way to ' + who.name + '. We will get back to you soon.');
-      }
-      function fallback(){ location.href = 'mailto:' + who.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); done(true); }
-      try {
-        fetch('https://formsubmit.co/ajax/' + who.email, {
-          method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-          body: JSON.stringify({_subject: subject, _template: 'table', _captcha: 'false', name: name, email: from, phone: phone, interested_in: topic, message: text})
-        }).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
-          .then(function(j){ if (j && (j.success === true || j.success === 'true')) done(false); else fallback(); })
-          .catch(fallback);
-      } catch(x) { fallback(); }
+      var key = get('msg-to'), who = PEOPLE[key] || PEOPLE.team;
+      var btn = f.querySelector('.msg-send'), label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = lang === 'es' ? 'Enviando…' : 'Sending…';
+      var body = new URLSearchParams({
+        'form-name': 'message-' + (PEOPLE[key] ? key : 'team'),
+        'bot-field': get('msg-hp'),
+        'send_to': who.name + ' <' + who.email + '>',
+        'name': name, 'email': from, 'phone': get('msg-phone'),
+        'interested_in': get('msg-topic'), 'message': text
+      }).toString();
+      var ctrl = ('AbortController' in window) ? new AbortController() : null;
+      var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 12000);
+      function reset(){ btn.disabled = false; btn.innerHTML = label; clearTimeout(to); }
+      fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: body, signal: ctrl ? ctrl.signal : undefined })
+        .then(function(r){
+          reset();
+          if (!r.ok) throw new Error('status ' + r.status);
+          f.reset(); setRecipient(who.key);
+          f.hidden = true; document.getElementById('msg-done').hidden = false;
+          document.getElementById('msg-done-text').textContent = lang === 'es'
+            ? 'Su mensaje fue enviado a ' + who.name + '. Le responderemos pronto. Esta ventana se cerrará sola.'
+            : 'Your message was sent to ' + who.name + '. We will get back to you soon. This window will close on its own.';
+          closeTimer = setTimeout(function(){ if (dlg.open) dlg.close(); }, 4500);
+        })
+        .catch(function(){ reset(); fail.hidden = false; });
     });
   }
 
