@@ -10,6 +10,7 @@
     document.querySelectorAll('.lang-switch button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
     var input = document.getElementById('site-search');
     if (input) input.placeholder = l === 'es' ? 'Buscar seguros…' : 'Search insurance…';
+    document.querySelectorAll('[data-wa]').forEach(function(a){ if (!a.hasAttribute('data-wa-custom')) a.href = 'https://wa.me/14074335475?text=' + encodeURIComponent(l === 'es' ? 'Hola, vi su sitio web y tengo una pregunta sobre seguros.' : 'Hi, I saw your website and have a question about insurance.'); });
     document.querySelectorAll('[data-ph-en]').forEach(function(el){ el.placeholder = el.getAttribute('data-ph-' + l); });
     document.querySelectorAll('option[data-en]').forEach(function(o){ o.textContent = o.getAttribute('data-' + l); });
     store(l);
@@ -32,7 +33,7 @@
 
   // search
   var input = document.getElementById('site-search'), list = document.getElementById('search-results');
-  function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
   function runSearch(){
     var q = norm(input.value.trim());
     if (!q) { list.hidden = true; input.setAttribute('aria-expanded','false'); return []; }
@@ -214,6 +215,164 @@
     if (h && document.querySelector('.chip[data-filter="' + h + '"]')) document.querySelector('.chip[data-filter="' + h + '"]').click();
   }
   document.querySelectorAll('[data-ph-en]').forEach(function(el){ el._ph = true; });
+
+  // ---- message prefill helper (used by checkup + calculator) ----
+  window.ciaMessage = function(key, text, topic){
+    openMsg(key || 'team');
+    if (text) document.getElementById('msg-text').value = text;
+    if (topic) { var sel = document.getElementById('msg-topic'); for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === topic) sel.selectedIndex = i; }
+  };
+
+  // ---- real enrollment deadlines (only shown inside the actual window) ----
+  (function(){
+    var box = document.getElementById('deadlines'); if (!box) return;
+    var now = new Date(), y = now.getFullYear(), any = false;
+    box.querySelectorAll('.deadline').forEach(function(el){
+      var s = el.dataset.start.split('-'), e = el.dataset.end.split('-');
+      var start = new Date(y, +s[0] - 1, +s[1]), end = new Date(y, +e[0] - 1, +e[1], 23, 59, 59);
+      if (now >= start && now <= end) {
+        var days = Math.ceil((end - now) / 86400000);
+        el.querySelector('[data-days]').textContent = days; el.hidden = false; any = true;
+      }
+    });
+    box.hidden = !any;
+  })();
+
+  // ---- did-you-know flip cards ----
+  document.querySelectorAll('.flip').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if (e.target.closest('a')) return;
+      card.setAttribute('aria-pressed', String(card.getAttribute('aria-pressed') !== 'true'));
+    });
+  });
+
+  // ---- share buttons ----
+  (function(){
+    var url = (location.protocol.indexOf('http') === 0 && location.hostname.indexOf('coloninsurance') > -1) ? location.origin : 'https://www.coloninsuranceagency.com';
+    var msgEn = 'I recommend Colón Insurance Agency in Kissimmee. They explain everything clearly, in English or Spanish: ', msgEs = 'Te recomiendo Colón Insurance Agency en Kissimmee. Explican todo claro, en español o en inglés: ';
+    var wa = document.getElementById('share-wa'), fb = document.getElementById('share-fb'), cp = document.getElementById('share-copy');
+    function upd(){ if (wa) wa.href = 'https://wa.me/?text=' + encodeURIComponent((lang === 'es' ? msgEs : msgEn) + url); if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url); }
+    upd(); document.querySelectorAll('.lang-switch button').forEach(function(b){ b.addEventListener('click', upd); });
+    if (cp) cp.addEventListener('click', function(){
+      var lbl = cp.querySelector('span:last-child'), old = lbl.innerHTML;
+      var done = function(){ lbl.textContent = lang === 'es' ? '¡Copiado!' : 'Copied!'; setTimeout(function(){ lbl.innerHTML = old; }, 1800); };
+      try { navigator.clipboard.writeText(url).then(done, done); } catch(e) { done(); }
+    });
+  })();
+
+  // ---- life insurance calculator (DIME) ----
+  (function(){
+    var c = document.getElementById('life-calc'); if (!c) return;
+    var v = function(id){ var n = parseFloat(document.getElementById(id).value); return isNaN(n) ? 0 : n; };
+    var total = 0;
+    function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+    function calc(){
+      document.getElementById('c-years-out').textContent = v('c-years');
+      document.getElementById('c-kids-out').textContent = v('c-kids');
+      total = v('c-income') * v('c-years') + v('c-mortgage') + v('c-debts') + v('c-kids') * 25000 + v('c-final') - v('c-have');
+      total = Math.max(0, Math.round(total / 10000) * 10000);
+      document.getElementById('c-total').textContent = fmt(total);
+      var w = document.getElementById('c-wa');
+      if (w) w.href = 'https://wa.me/14074335475?text=' + encodeURIComponent(lang === 'es' ? 'Hola, usé la calculadora del sitio web. Me gustaría una cotización de seguro de vida por unos ' + fmt(total) + '.' : 'Hi, I used the calculator on your website. I would like a life insurance quote for about ' + fmt(total) + '.');
+    }
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(calc, 0); }); });
+    c.addEventListener('input', calc); calc();
+    document.getElementById('c-quote').addEventListener('click', function(){
+      var t = lang === 'es'
+        ? 'Hola, usé la calculadora del sitio web. Me gustaría una cotización de seguro de vida por unos ' + fmt(total) + '.'
+        : 'Hi, I used the calculator on your website. I would like a life insurance quote for about ' + fmt(total) + '.';
+      window.ciaMessage('team', t, 'Life insurance');
+    });
+  })();
+
+  // ---- free coverage checkup ----
+  (function(){
+    var form = document.getElementById('checkup-form'); if (!form) return;
+    var steps = form.querySelectorAll('.q-step'), cur = 0, bar = document.getElementById('q-bar');
+    function vals(name){ return Array.prototype.map.call(form.querySelectorAll('input[name="' + name + '"]:checked'), function(i){ return i.value; }); }
+    function show(i){
+      steps.forEach(function(s, k){ s.hidden = k !== i; }); cur = i;
+      bar.style.width = ((i) / steps.length * 100) + '%';
+      check(); var f = steps[i].querySelector('input'); if (f) f.focus({preventScroll: true});
+    }
+    function check(){ var s = steps[cur], ok = s.querySelector('input:checked'); s.querySelector('.q-next').disabled = !ok; }
+    form.addEventListener('change', function(e){
+      var s = steps[cur];
+      if (e.target.name === 'q5' && e.target.value === 'none' && e.target.checked) s.querySelectorAll('input').forEach(function(i){ if (i.value !== 'none') i.checked = false; });
+      else if (e.target.name === 'q5' && e.target.checked) { var n = s.querySelector('input[value="none"]'); if (n) n.checked = false; }
+      if (e.target.name === 'q1' && e.target.value === 'me' && e.target.checked) s.querySelectorAll('input').forEach(function(i){ if (i.value !== 'me') i.checked = false; });
+      else if (e.target.name === 'q1' && e.target.checked) { var m = s.querySelector('input[value="me"]'); if (m) m.checked = false; }
+      check();
+      if (e.target.type === 'radio') setTimeout(function(){ if (cur < steps.length - 1) show(cur + 1); }, 250);
+    });
+    form.querySelectorAll('.q-next').forEach(function(b){ b.addEventListener('click', function(){ if (cur < steps.length - 1) show(cur + 1); else results(); }); });
+    form.querySelectorAll('.q-back').forEach(function(b){ b.addEventListener('click', function(){ show(cur - 1); }); });
+
+    var R = {
+      life: {u:'life.html', en:['Life insurance','People depend on your income. Life insurance keeps them in the home and covers the bills if something happens to you.'], es:['Seguro de vida','Hay personas que dependen de su ingreso. El seguro de vida les mantiene en el hogar y cubre las cuentas si algo le pasa.']},
+      disability: {u:'disability.html', en:['Disability insurance','Your savings would not last long without a paycheck. Disability insurance replaces part of your income if you get sick or hurt.'], es:['Seguro por incapacidad','Sus ahorros no durarían mucho sin salario. El seguro por incapacidad reemplaza parte de su ingreso si se enferma o se lastima.']},
+      health: {u:'health.html', en:['Health insurance','You may not have health coverage. One hospital stay can cost tens of thousands of dollars.'], es:['Seguro de salud','Puede que no tenga cobertura médica. Una hospitalización puede costar decenas de miles de dólares.']},
+      medicare: {u:'medicare.html', en:['Medicare plan review','At your age, the right Medicare plan can save a lot. Plans change every year, so a free review is worth it.'], es:['Revisión de Medicare','A su edad, el plan de Medicare correcto puede ahorrarle mucho. Los planes cambian cada año, así que vale la pena una revisión gratis.']},
+      medicaresoon: {u:'medicare.html', en:['Get ready for Medicare','You are getting close to 65. Planning a few months ahead helps you avoid lifelong penalties.'], es:['Prepárese para Medicare','Se acerca a los 65. Planificar unos meses antes le ayuda a evitar multas de por vida.']},
+      supplemental: {u:'supplemental.html', en:['Supplemental coverage','A cash plan for accidents or hospital stays can cover your deductible so a bad day does not hurt your budget.'], es:['Cobertura suplementaria','Un plan en efectivo para accidentes u hospitalizaciones puede cubrir su deducible para que un mal día no afecte su presupuesto.']},
+      home: {u:'home-auto.html', en:['Home and flood protection','Your home is likely your biggest investment. Check your hurricane deductible, and remember flood needs its own policy.'], es:['Protección de hogar e inundación','Su casa probablemente es su mayor inversión. Revise su deducible de huracán, y recuerde que la inundación necesita su propia póliza.']},
+      renters: {u:'home-auto.html', en:['Renters insurance','Your landlord’s policy does not cover your belongings. Renters insurance is inexpensive and covers theft, fire and liability.'], es:['Seguro de inquilino','La póliza del dueño no cubre sus pertenencias. El seguro de inquilino es económico y cubre robo, fuego y responsabilidad.']},
+      critical: {u:'critical-illness.html', en:['Cancer and critical illness','A lump-sum payment after a cancer, heart attack or stroke diagnosis protects your family’s budget while you recover.'], es:['Cáncer y enfermedades graves','Un pago global tras un diagnóstico de cáncer, ataque al corazón o derrame protege el presupuesto de su familia mientras se recupera.']},
+      ltc: {u:'long-term-care.html', en:['Long-term care planning','Your 40s to early 60s are the best time to plan. Medicare does not pay for long-term care.'], es:['Planificar el cuidado a largo plazo','De los 40 a principios de los 60 es el mejor momento para planificar. Medicare no paga el cuidado a largo plazo.']},
+      final: {u:'final-expense.html', en:['Final expense coverage','A small policy that pays for your funeral so your family does not have to.'], es:['Seguro de gastos finales','Una póliza pequeña que paga su funeral para que su familia no tenga que hacerlo.']},
+      retirement: {u:'retirement.html', en:['Retirement planning','Protect your savings and plan an income that lasts as long as you do.'], es:['Planificación del retiro','Proteja sus ahorros y planifique un ingreso que dure tanto como usted.']}
+    };
+    var lastRecs = [];
+    function results(){
+      var q1 = vals('q1'), age = vals('q2')[0], home = vals('q3')[0], cush = vals('q4')[0], cov = vals('q5');
+      var dep = q1.some(function(x){ return x !== 'me'; }), low = (cush === '0' || cush === '1');
+      var hasHealth = cov.indexOf('hwork') > -1 || cov.indexOf('hown') > -1 || cov.indexOf('medicare') > -1;
+      var sc = {};
+      function add(k, n){ sc[k] = (sc[k] || 0) + n; }
+      if (dep && cov.indexOf('lown') < 0) add('life', cov.indexOf('lwork') > -1 ? 7 : 10);
+      if (age !== '65' && low) add('disability', 9); else if (age !== '65') add('disability', 4);
+      if (!hasHealth && age !== '65') add('health', 11);
+      if (age === '65') add('medicare', 11);
+      if (age === '55') add('medicaresoon', 6);
+      if (low && hasHealth) add('supplemental', 6);
+      if (home === 'own') add('home', 5);
+      if (home === 'rent') add('renters', 4);
+      if (dep) add('critical', 3);
+      if (age === '40' || age === '55') add('ltc', 4);
+      if ((age === '55' || age === '65') && cov.indexOf('lown') < 0) add('final', age === '65' ? 7 : 4);
+      if (age === '55' || age === '65') add('retirement', 3);
+      lastRecs = Object.keys(sc).sort(function(a, b){ return sc[b] - sc[a]; }).slice(0, 4);
+      if (!lastRecs.length) lastRecs = ['life', 'disability'];
+      render();
+      form.hidden = true; bar.style.width = '100%';
+      var r = document.getElementById('q-results'); r.hidden = false; r.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+    function waText(){
+      var names = lastRecs.map(function(k){ return '- ' + (R[k][lang] || R[k].en)[0]; }).join('\n');
+      return lang === 'es' ? 'Hola, hice el chequeo de cobertura en su sitio web. Mis resultados recomiendan:\n' + names + '\nMe gustaría una revisión gratis.'
+                           : 'Hi, I took the coverage checkup on your website. My results suggest:\n' + names + '\nI would like a free review.';
+    }
+    function render(){
+      var qwa = document.getElementById('q-wa'); if (qwa) qwa.href = 'https://wa.me/14074335475?text=' + encodeURIComponent(waText());
+      var ol = document.getElementById('recs'); ol.innerHTML = '';
+      lastRecs.forEach(function(k, i){
+        var d = R[k][lang] || R[k].en, li = document.createElement('li');
+        li.innerHTML = '<span class="rec-n">' + (i + 1) + '</span><span class="rec-b"><b></b><span></span><a></a></span>';
+        li.querySelector('b').textContent = d[0]; li.querySelector('.rec-b > span').textContent = d[1];
+        var a = li.querySelector('a'); a.href = R[k].u; a.textContent = (lang === 'es' ? 'Ver más' : 'Learn more') + ' →';
+        ol.appendChild(li);
+      });
+    }
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.addEventListener('click', function(){ if (lastRecs.length) render(); }); });
+    document.getElementById('q-restart').addEventListener('click', function(){ form.reset(); lastRecs = []; document.getElementById('q-results').hidden = true; form.hidden = false; show(0); });
+    document.getElementById('q-send').addEventListener('click', function(){
+      var names = lastRecs.map(function(k){ return '- ' + (R[k][lang] || R[k].en)[0]; }).join('\n');
+      var txt = lang === 'es' ? 'Hola, hice el chequeo de cobertura en su sitio web. Mis resultados recomiendan:\n' + names + '\nMe gustaría una revisión gratis.'
+                              : 'Hi, I took the coverage checkup on your website. My results suggest:\n' + names + '\nI would like a free review.';
+      window.ciaMessage('team', txt);
+    });
+    show(0);
+  })();
 
   var start = getStored() || 'en';
   if (location.hash === '#es') start = 'es';
