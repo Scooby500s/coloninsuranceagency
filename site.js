@@ -121,7 +121,7 @@
       var f = e.target, get = function(id){ return document.getElementById(id).value.trim(); };
       var name = get('msg-name'), from = get('msg-from'), text = get('msg-text');
       var err = document.getElementById('msg-error'), fail = document.getElementById('msg-fail');
-      fail.hidden = true; document.getElementById('msg-fallback').hidden = true;
+      fail.hidden = true; document.getElementById('msg-fallback').hidden = true; var w0 = document.getElementById('msg-fail-why'); if (w0) w0.textContent = '';
       if (!name || !from || from.indexOf('@') < 1 || !text) { err.hidden = false; return; }
       err.hidden = true;
       var key = get('msg-to'), who = PEOPLE[key] || PEOPLE.team;
@@ -129,21 +129,20 @@
       btn.disabled = true; btn.textContent = lang === 'es' ? 'Enviando…' : 'Sending…';
       var hp = get('msg-hp');
       if (hp) { f.hidden = true; document.getElementById('msg-done').hidden = false; return; }
+      var topic0 = get('msg-topic'), phone0 = get('msg-phone');
       var payload = {
-        'name': name, 'email': from, 'phone': get('msg-phone'),
-        'interested_in': get('msg-topic'), 'message': text,
-        'sent_to': who.name,
-        '_subject': 'Website message for ' + who.name + ' from ' + name,
-        '_replyto': from, '_template': 'table', '_captcha': 'false'
+        '_subject': 'Website message for ' + who.name + ': ' + (topic0 || 'question') + ' (' + name + ')',
+        '_template': 'table', '_captcha': 'false',
+        'name': name, 'email': from, 'phone': phone0, 'interested_in': topic0, 'message': text
       };
       var ctrl = ('AbortController' in window) ? new AbortController() : null;
       var to = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 15000);
       function reset(){ btn.disabled = false; btn.innerHTML = label; clearTimeout(to); }
       fetch('https://formsubmit.co/ajax/' + who.email, { method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
-        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, j: j}; }); })
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, status: r.status, j: j || {}}; }); })
         .then(function(res){
           reset();
-          if (!res.ok || String(res.j.success) !== 'true') throw new Error(res.j.message || 'not sent');
+          if (!res.ok || String(res.j.success) !== 'true') throw new Error((res.j && res.j.message) || ('HTTP ' + res.status));
           f.reset(); setRecipient(who.key);
           f.hidden = true; document.getElementById('msg-done').hidden = false;
           document.getElementById('msg-done-text').textContent = lang === 'es'
@@ -151,8 +150,9 @@
             : 'Your message was sent to ' + who.name + '. We will get back to you soon. This window will close on its own.';
           closeTimer = setTimeout(function(){ if (dlg.open) dlg.close(); }, 4500);
         })
-        .catch(function(){
+        .catch(function(ex){
           reset(); fail.hidden = false;
+          var why = document.getElementById('msg-fail-why'); if (why) why.textContent = '(' + (ex && ex.name === 'AbortError' ? 'timeout' : (ex && ex.message ? ex.message : 'network error')) + ')';
           var es = lang === 'es', topic = get('msg-topic'), phone = get('msg-phone');
           var full = (es ? 'Hola ' : 'Hi ') + who.name + ',\n\n' + text + '\n\n— ' + name + '\n' + from + (phone ? '\n' + phone : '') +
             (topic ? '\n' + (es ? 'Interesado en: ' : 'Interested in: ') + topic : '');
