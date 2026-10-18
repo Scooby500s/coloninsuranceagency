@@ -87,7 +87,7 @@
   });
 
   // ---- message form (one per person, same window) ----
-  var PEOPLE = {"team": {"key": "team", "name": "Colón Insurance Agency", "email": "contact@coloninsuranceagency.com", "photo": "img/emblem.png"}, "nelson": {"key": "nelson", "name": "Nelson Colón", "email": "nelsoncolon@coloninsuranceagency.com", "photo": "img/team-nelson.jpg"}, "norma": {"key": "norma", "name": "Norma A. Lappot", "email": "normalappot@coloninsuranceagency.com", "photo": "img/team-norma.jpg"}, "joan": {"key": "joan", "name": "Joan C. Colón", "email": "joan.colon@coloninsuranceagency.com", "photo": "img/team-joan.jpg"}};
+  var PEOPLE = {"team": {"key": "team", "name": "Colón Insurance Agency", "email": "contact@coloninsuranceagency.com", "photo": "emblem.png"}, "nelson": {"key": "nelson", "name": "Nelson Colón", "email": "nelsoncolon@coloninsuranceagency.com", "photo": "team-nelson.jpg"}, "norma": {"key": "norma", "name": "Norma A. Lappot", "email": "normalappot@coloninsuranceagency.com", "photo": "team-norma.jpg"}, "joan": {"key": "joan", "name": "Joan C. Colón", "email": "joan.colon@coloninsuranceagency.com", "photo": "team-joan.jpg"}};
   var dlg = document.getElementById('msg-dialog');
   function setRecipient(key){
     var p = PEOPLE[key] || PEOPLE.team;
