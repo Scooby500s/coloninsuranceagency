@@ -53,7 +53,7 @@
       list.appendChild(li);
     }
     hits.forEach(function(h, n){
-      var li = document.createElement('li'); li.setAttribute('role','option');
+      var li = document.createElement('li');
       var a = document.createElement('a'); a.href = h.it.u + (lang === 'es' ? '#es' : '');
       var b = document.createElement('b'); b.textContent = h.it[lang][0];
       var s = document.createElement('span'); s.textContent = h.it[lang][1];
